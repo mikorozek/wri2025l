@@ -12,7 +12,7 @@ WHITE = 6        # Value for white color
 RED = 5          # Value for red color (pickup color)
 BLUE = 3         # Value for blue color (dropoff color)
 TURN_DURATION_90 = 1.05    # Duration for 90-degree turn
-TURN_DURATION_75 = 0.875   # Duration for 75-degree turn
+TURN_DURATION_50 = 0.6   # Duration for 75-degree turn
 
 class RobotState:
     def __init__(self):
@@ -86,9 +86,9 @@ class LineFolowerRobot:
         sleep(0.2)
         
         if self.state.last_turn_direction == "left":
-            self.turn_right(duration=TURN_DURATION_75)
+            self.turn_right(duration=TURN_DURATION_50)
         else:
-            self.turn_left(duration=TURN_DURATION_75)
+            self.turn_left(duration=TURN_DURATION_50)
 
     def check_for_red_junction(self):
         if self.state.after_picking_up_object:
@@ -168,6 +168,9 @@ class LineFolowerRobot:
         self.sound.beep()
         self.arm_motor.on_for_degrees(speed=100, degrees=85)
         sleep(0.5)
+        self.set_motors(-40, -40)
+        sleep(1.5)
+        self.stop_motors()
 
     def handle_button_press(self):
             if self.state.running:
@@ -188,9 +191,9 @@ class LineFolowerRobot:
         sleep(0.2)
         
         if self.state.last_turn_direction == "left":
-            self.turn_right(duration=TURN_DURATION_75)
+            self.turn_right(duration=TURN_DURATION_50)
         else:
-            self.turn_left(duration=TURN_DURATION_75)
+            self.turn_left(duration=TURN_DURATION_50)
 
     def run(self):
         print("Line follower program started")
